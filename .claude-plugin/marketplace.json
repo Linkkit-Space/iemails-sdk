@@ -1,0 +1,14 @@
+{
+  "name": "iemails",
+  "owner": { "name": "iemails", "url": "https://iemails.co" },
+  "metadata": {
+    "description": "Official iemails plugins for Claude Code."
+  },
+  "plugins": [
+    {
+      "name": "iemails",
+      "source": "./",
+      "description": "The iemails MCP server and skill: send email, check delivery, verify domains and write correct iemails code."
+    }
+  ]
+}

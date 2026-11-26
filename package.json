@@ -1,8 +1,16 @@
 {
   "name": "iemails",
-  "version": "0.1.1",
-  "description": "Official Node.js SDK for the iemails API: send email, manage domains, contacts, broadcasts, templates, webhooks and inboxes.",
-  "keywords": ["iemails", "email", "transactional email", "smtp", "api", "sdk"],
+  "version": "0.2.0",
+  "description": "Official Node.js SDK and CLI for the iemails API: send email, manage domains, contacts, broadcasts, templates, webhooks and inboxes.",
+  "keywords": [
+    "api",
+    "cli",
+    "email",
+    "iemails",
+    "sdk",
+    "smtp",
+    "transactional email"
+  ],
   "homepage": "https://iemails.co/docs",
   "repository": {
     "type": "git",
@@ -27,7 +35,12 @@
     },
     "./package.json": "./package.json"
   },
-  "files": ["dist", "README.md", "LICENSE", "CHANGELOG.md"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
   "sideEffects": false,
   "engines": {
     "node": ">=20"
@@ -44,5 +57,8 @@
     "tsup": "^8.3.0",
     "typescript": "^5.6.0",
     "vitest": "^2.1.0"
+  },
+  "bin": {
+    "iemails": "./dist/cli.js"
   }
 }

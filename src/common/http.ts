@@ -59,7 +59,8 @@ export async function request<T>(cfg: HttpConfig, method: Method, path: string, 
     ...cfg.headers,
     ...opts.headers,
   };
-  if (cfg.userAgent && typeof (globalThis as { window?: unknown }).window === 'undefined') headers['user-agent'] = cfg.userAgent;
+  // A caller-set User-Agent (e.g. the CLI's) wins; browsers don't allow setting it at all.
+  if (cfg.userAgent && !Object.keys(headers).some((k) => k.toLowerCase() === 'user-agent') && typeof (globalThis as { window?: unknown }).window === 'undefined') headers['user-agent'] = cfg.userAgent;
   if (body !== undefined) headers['content-type'] = 'application/json';
   if (idempotencyKey) headers['idempotency-key'] = idempotencyKey;
 

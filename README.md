@@ -1,6 +1,6 @@
-# iemails Node.js SDK
+# iemails Node.js SDK and CLI
 
-The official Node.js library for the [iemails](https://iemails.co) API: send transactional email, and manage domains, contacts, broadcasts, templates, webhooks and inboxes.
+The official Node.js library and command-line tool for the [iemails](https://iemails.co) API: send transactional email, and manage domains, contacts, broadcasts, templates, webhooks and inboxes.
 
 - Zero dependencies — uses `fetch`, so it runs on Node 20+, Bun, Deno, Vercel/Netlify edge and Supabase edge functions.
 - Every method returns `{ data, error }` and never throws for API errors.
@@ -192,6 +192,89 @@ Anything not wrapped yet:
 ```ts
 const { data } = await iemails.request('GET', '/smtp/verify');
 ```
+
+## Command line
+
+The package also installs the `iemails` command. Run it with `npx iemails`, or install it globally:
+
+```bash
+npm install -g iemails
+iemails login                     # paste an API key; it is checked, then saved to ~/.config/iemails (0600)
+iemails doctor                    # checks your key and which domains are verified
+```
+
+Send and follow an email:
+
+```bash
+iemails send \
+  --from "Acme <hello@acme.dev>" \
+  --to you@example.com \
+  --subject "It works" \
+  --html-file welcome.html \
+  --attach invoice.pdf
+
+iemails emails watch email_7Hk2Qp9vX   # prints queued → sent → delivered, exits 0 when delivered
+```
+
+Manage your account from the shell:
+
+```bash
+iemails emails list --status bounced
+iemails domains add mail.acme.dev      # prints the DNS records to add
+iemails domains verify dom_123
+iemails contacts add sam@example.com --first-name Sam
+iemails webhooks create --url https://acme.dev/hooks/email --events email.bounced,email.complained
+iemails api GET /templates             # any endpoint
+```
+
+In a terminal the output is readable tables. In CI, in a pipe or for an AI agent it is JSON (force it with `--json`), and the exit code is `0` on success, `1` on an API error and `2` on a usage error. Set `IEMAILS_API_KEY` instead of logging in:
+
+```yaml
+# GitHub Actions
+env:
+  IEMAILS_API_KEY: ${{ secrets.IEMAILS_API_KEY }}
+steps:
+  - run: |
+      npx iemails send \
+        --from "Acme <deploys@acme.dev>" \
+        --to team@acme.dev \
+        --subject "Deploy complete" \
+        --text "Version ${{ github.sha }} is live."
+```
+
+Use `--profile` (and `iemails profiles use <name>`) to switch between saved keys, for example production and staging. Run `iemails --help` for every command.
+
+## AI agents: MCP, skills and the Claude Code plugin
+
+**MCP server.** Connect any MCP client to the hosted server at `https://iemails.co/api/mcp` with your API key as a bearer token, or run it locally over stdio:
+
+```json
+{
+  "mcpServers": {
+    "iemails": {
+      "command": "npx",
+      "args": ["-y", "iemails", "mcp"],
+      "env": { "IEMAILS_API_KEY": "em_…" }
+    }
+  }
+}
+```
+
+`iemails mcp` forwards to the hosted server with your key (from `IEMAILS_API_KEY` or `iemails login`); add `--from "Acme <hello@acme.dev>"` for a default sender. Setup for each client: https://iemails.co/ai/mcp
+
+**Agent Skill.** Teach your coding agent how to use iemails correctly (server-side keys, idempotency, webhooks, test addresses):
+
+```bash
+npx skills add Linkkit-Space/iemails-sdk
+```
+
+**Claude Code plugin.** The MCP server and the skill in one install:
+
+```
+/plugin install iemails --marketplace Linkkit-Space/iemails-sdk
+```
+
+Run `iemails login` once (or export `IEMAILS_API_KEY`) so the plugin's MCP server can authenticate.
 
 ## Configuration
 

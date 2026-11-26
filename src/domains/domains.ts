@@ -3,11 +3,14 @@ import { seg, toWire } from '../common/utils';
 import type { ApiObject, Deleted, List, RequestOptions, Response } from '../interfaces';
 
 export interface DnsRecord {
-  type: string;
+  /** TXT, MX or CNAME. */
+  record: 'TXT' | 'MX' | 'CNAME' | (string & {});
   name: string;
   value: string;
-  status?: string;
-  [key: string]: unknown;
+  priority: number | null;
+  status: 'pending' | 'verified' | 'failed' | (string & {});
+  required: boolean;
+  last_checked_at: string | null;
 }
 
 export interface Domain extends ApiObject<'domain'> {

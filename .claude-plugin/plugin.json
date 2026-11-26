@@ -1,0 +1,36 @@
+{
+  "name": "iemails",
+  "version": "0.2.0",
+  "description": "Send and manage email with iemails from Claude Code: the iemails MCP server (send, check delivery, domains, contacts, webhooks) plus the iemails skill for writing correct email code.",
+  "author": {
+    "name": "iemails",
+    "url": "https://iemails.co"
+  },
+  "homepage": "https://iemails.co/ai/claude-code",
+  "repository": "https://github.com/Linkkit-Space/iemails-sdk",
+  "license": "MIT",
+  "keywords": [
+    "email",
+    "transactional email",
+    "mcp",
+    "iemails"
+  ],
+  "mcpServers": {
+    "iemails": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "iemails@latest",
+        "mcp"
+      ]
+    }
+  },
+  "icon": ".claude-plugin/icon.png",
+  "network": {
+    "hosts": [
+      "iemails.co",
+      "www.iemails.co",
+      "registry.npmjs.org"
+    ]
+  }
+}
