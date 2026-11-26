@@ -1,6 +1,6 @@
 {
   "name": "iemails",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Official Node.js SDK for the iemails API: send email, manage domains, contacts, broadcasts, templates, webhooks and inboxes.",
   "keywords": ["iemails", "email", "transactional email", "smtp", "api", "sdk"],
   "homepage": "https://iemails.co/docs",

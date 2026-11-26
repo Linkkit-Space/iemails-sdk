@@ -1,6 +1,11 @@
 # Changelog
 
-## 0.1.0 — unreleased
+## 0.1.1 — 2026-11-26
+
+- Published from GitHub Actions with npm trusted publishing, so each release carries a provenance statement linking it to this repository.
+- No API changes.
+
+## 0.1.0 — 2026-11-26
 
 First release.
 
