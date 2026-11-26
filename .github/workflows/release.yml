@@ -1,13 +1,16 @@
 name: Release
 
-# Publishes to npm when a GitHub release is published (tag v0.1.0 → version 0.1.0).
+# Publishes to npm when a GitHub release is published (tag v0.1.1 → version 0.1.1).
+# Uses npm trusted publishing (OIDC): no NPM_TOKEN secret. Configure it on
+# npmjs.com → iemails → Settings → Trusted Publisher → GitHub Actions
+# (Linkkit-Space / iemails-sdk / release.yml). Provenance is added automatically.
 on:
   release:
     types: [published]
 
 permissions:
   contents: read
-  id-token: write # npm provenance
+  id-token: write # lets npm verify this workflow
 
 jobs:
   publish:
@@ -19,9 +22,9 @@ jobs:
           node-version: 22
           registry-url: https://registry.npmjs.org
           cache: npm
+      # Trusted publishing needs npm 11.5.1 or newer.
+      - run: npm install -g npm@latest
       - run: npm ci
       - name: Check the tag matches package.json
         run: test "v$(node -p "require('./package.json').version")" = "${GITHUB_REF_NAME}"
-      - run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: npm publish --access public
