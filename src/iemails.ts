@@ -42,7 +42,7 @@ export class IEmails {
 
   constructor(apiKey?: string, options: IemailsOptions = {}) {
     const fetchImpl = options.fetch ?? (globalThis.fetch?.bind(globalThis) as typeof fetch | undefined);
-    if (!fetchImpl) throw new Error('iemails: no fetch implementation found. Use Node 18+ or pass { fetch } in the options.');
+    if (!fetchImpl) throw new Error('iemails: no fetch implementation found. Use Node 20+ or pass { fetch } in the options.');
 
     this.#config = {
       apiKey: apiKey ?? readEnv('IEMAILS_API_KEY'),

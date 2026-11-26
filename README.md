@@ -2,7 +2,7 @@
 
 The official Node.js library for the [iemails](https://iemails.co) API: send transactional email, and manage domains, contacts, broadcasts, templates, webhooks and inboxes.
 
-- Zero dependencies — uses `fetch`, so it runs on Node 18+, Bun, Deno, Vercel/Netlify edge and Supabase edge functions.
+- Zero dependencies — uses `fetch`, so it runs on Node 20+, Bun, Deno, Vercel/Netlify edge and Supabase edge functions.
 - Every method returns `{ data, error }` and never throws for API errors.
 - Safe retries: rate limits and network errors are retried, and sends carry an idempotency key so a retry can't send twice.
 - Fully typed, ESM and CommonJS.

@@ -3,6 +3,7 @@
 ## 0.1.1 — 2026-11-26
 
 - Published from GitHub Actions with npm trusted publishing, so each release carries a provenance statement linking it to this repository.
+- Requires Node.js 20 or newer (Node 18 is end-of-life and has no global Web Crypto, which `verifyWebhook` needs).
 - No API changes.
 
 ## 0.1.0 — 2026-11-26

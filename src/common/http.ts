@@ -124,7 +124,7 @@ export async function request<T>(cfg: HttpConfig, method: Method, path: string, 
   }
 }
 
-/** AbortSignal.any with a fallback for runtimes that lack it (Node < 20.3). */
+/** AbortSignal.any with a fallback for runtimes that lack it (Node 20.0–20.2). */
 function anySignal(signals: AbortSignal[]): AbortSignal {
   const any = (AbortSignal as { any?: (s: AbortSignal[]) => AbortSignal }).any;
   if (any) return any(signals);
